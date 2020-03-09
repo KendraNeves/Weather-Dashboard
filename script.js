@@ -1,13 +1,52 @@
 $(document).ready(function() {
 
+    //Gets previously entered cities from local storage and prints it in left sidebar
+    {
+        let cities = JSON.parse(localStorage.getItem('cities'));
+        for (let i = 0; i < cities.length; i++) {
+            let button = $("<button>");
+            let city = cities[i];
+            button.appendTo(".sidenav").attr("class", "btn btn-outline-info pastCitySearch col-12").text(city);
+            button.click(function(){
+                getWeather(this.textContent);
+            });
+        }
+    }
 
-let city = "baltimore";
+    //Search for city
+    $(".search").click(function(event){
+        event.preventDefault();
+        let userInput = $(".form-control").val();
+        let city = userInput;
+        getWeather(city);
 
+         
+        // Add item to 'cities' in localStorage
+        let cities = JSON.parse(localStorage.getItem("cities"));
+        if (!cities) {
+            cities = [];
+        }
+        if (!cities.includes(city)) {
+            cities.push(city);
+            localStorage.setItem("cities", JSON.stringify(cities));
+        }
 
-    function getWeather(){
+    
+        let button = $("<button>");
+        button.appendTo(".sidenav").attr("class", "btn btn-outline-info pastCitySearch col-12").text(city);
+        button.click(function(){
+            getWeather(this.textContent);
+        })
+        
+        
+    });
+
+    
+
+    function getWeather(city){
 
         //Weather.com API call
-        let weatherURL = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&APPID=8a9c8778f33ed43d7abdebc8755bbe26`;
+        let weatherURL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&APPID=8a9c8778f33ed43d7abdebc8755bbe26`;
             
         $.ajax({
             url: weatherURL,
@@ -15,23 +54,51 @@ let city = "baltimore";
         })
             .then(function(response){
              $(".city").text(city + " " + moment().format('l'));
-             $("<img>").appendTo(".city").attr("src", `http://openweathermap.org/img/w/${response.list[0].weather[0].icon}.png`) //ICON
+             $("<img>").appendTo(".city").attr("src", `https://openweathermap.org/img/w/${response.list[0].weather[0].icon}.png`); //ICON
              $(".temp").text("Temperature: " + response.list[0].main.temp + " °F");
-             $(".humidity").text("Humidity: " + response.list[0].main.humidity);
-             $(".wind").text("Wind Speed: " + response.list[0].wind.speed);
-             $(".uvIndex").text();
-
-
-
-
-
+             $(".humidity").text("Humidity: " + response.list[0].main.humidity + " %");
+             $(".wind").text("Wind Speed: " + response.list[0].wind.speed + " MPH");
+             console.log(response);
              
-                console.log(response);
-            });
+             //5 Day forcast CARDS
+             for (let i = 1; i < 6; i++){
+                 $(".date" +[i]).text(moment().add(i, "days").format('l'));     //Date at top of cards
+                 $(".icon"+ [i]).attr("src", `https://openweathermap.org/img/w/${response.list[(i*8)-1].weather[0].icon}.png`); //ICON
+                 $(".temp" + [i]).text("Temperature: " + response.list[(i*8)-1].main.temp + " °F");
+                 $(".humidity" + [i]).text("Humidity: " + response.list[(i*8)-1].main.humidity + " %");
+             }
 
+             //Lat and lon for UV index
+             let lat = response.city.coord.lat;
+             let lon = response.city.coord.lon;
+
+       
+            // UV Index API Call
+            let uvURL = `https://api.openweathermap.org/data/2.5/uvi?appid=8a9c8778f33ed43d7abdebc8755bbe26&lat=${lat}&lon=${lon}`;
+                
+            $.ajax({
+                url: uvURL,
+                method: "GET"
+            })
+                .then(function(responseUV){
+                    console.log(responseUV);
+                    $(".uvIndex").text("UV Index: " + responseUV.value);
+
+                    //Color changes depending on UV index 
+                    if (responseUV.value < 3){
+                        $(".uvIndex").attr("class", "uvIndex btn btn-success");
+                    }
+                    if (responseUV.value > 3 & responseUV.value < 6){
+                        $(".uvIndex").attr("class", "uvIndex btn btn-warning");
+                    }
+                    if (responseUV.value > 6){
+                        $(".uvIndex").attr("class", "uvIndex btn btn-danger");
+                    }
+                });
+        });
 
     }
 
-    getWeather()
+    getWeather("Baltimore")
 
 });
