@@ -10,102 +10,130 @@
     <title>Weather Dashboard</title>
 </head>
 <body>
-   <header class="container" style="margin-top: 50px;">
-        <div class="row text-center m-5">   
-            <div class="col-3"></div>
-            <h1 class="col-6">Weather Dashboard</h1>
-            <div class="col-3"></div>
-        </div> 
+        <!-- HAMBURGER NAV -->
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <span class="navbar-brand mb-0 h2">Weather Dashboard</span>
+            <!-- HAMBURGER BUTTON -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               
+                <!-- SEARCH BAR -->
+                <section class="navbar navbar-light my-4 d-sm-none">
+                    <form class="form-inline">
+                    <input class="form-control mr-sm-2" type="search" placeholder="City" aria-label="Search">
+                    <button class="btn btn-outline-info my-2 my-sm-0 search" type="submit"> Search</button>
+                    </form>
+                </section> 
+                
+                <!-- WHERE CITY BUTTONS APPEAR -->
+               <ul class="list-group d-block d-sm-none nav"></ul>
+            </div>
+        </nav>
 
-        <div class="row text-center">
-            <div class="col-4"></div>
-            <h4 class="col-4"></h4>
-            <div class="col-4"></div>
+        <!-- SIDEBAR -->
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-3 d-none d-sm-block">
+                         <!-- SEARCH BAR -->
+                        <section class="navbar navbar-light my-4 .d-none .d-sm-block ">
+                            <form class="form-inline">
+                            <input class="form-control mr-sm-2" type="search" placeholder="City" aria-label="Search">
+                            <button class="btn btn-outline-info my-2 my-sm-0 search" type="submit"> Search</button>
+                            </form>
+                        </section>
+                        <ul class="list-group nav"></ul> 
+                    
+                        <!-- WHERE CITY BUTTONS APPEAR -->
+                        
+                        <!-- <button class="btn btn-outline-danger clear">Clear</button> -->
+                </div>
+            
+            
+                <!-- Page content -->
+                <div class="col-9">
+
+                    <!-- Space above city name -->
+                    <header class="container" style="margin-top: 50px;">
+                        <div class="row text-center">
+                            <div class="col-4"></div>
+                            <h4 class="col-4"></h4>
+                            <div class="col-4"></div>
+                        </div>
+                    </header>   
+                
+                
+                    <main class="container">
+                        
+                        <!-- Today's forcast -->
+                        <section>
+                            <h2 class= "city date0"></h2>
+                            <p class="temp"></p>
+                            <p class="humidity"></p>
+                            <p class="wind"></p>
+                            <p class="uvIndex"></p>
+                        </section>
+                
+                
+                        <section class="row">
+                            <h2 class="col-12 m-3">5-Day Forecast</h2>
+                        </section>
+                
+                        <!-- 5 Day Forcast cards -->
+                        <div class="col-1"></div>
+                
+                        <section class="row">
+                            <div class="card text-white bg-primary col-12 col-lg-2 m-3" style="max-width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title date1"></h5>
+                                        <img class="icon1">
+                                        <p class="card-text temp1"></p>
+                                        <p class="card-text humidity1"></p>
+                                </div>
+                            </div>
+                
+                            <div class="card text-white bg-primary col-12 col-lg-2 m-3" style="max-width: 18rem;">
+                                <div class="card-body">
+                                <h5 class="card-title date2"></h5>
+                                    <img class="icon2">
+                                    <p class="card-text temp2">Temp</p>
+                                    <p class="card-text humidity2">humidity</p>
+                                </div>
+                            </div>
+                
+                            <div class="card text-white bg-primary col-12 col-lg-2 m-3" style="max-width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title date3"></h5>
+                                        <img class="icon3">
+                                        <p class="card-text temp3">Temp</p>
+                                        <p class="card-text humidity3">humidity</p>
+                                </div>
+                            </div>
+                
+                            <div class="card text-white bg-primary col-12 col-lg-2 m-3" style="max-width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title date4"></h5>
+                                        <img class="icon4">
+                                        <p class="card-text temp4">Temp</p>
+                                        <p class="card-text humidity4">humidity</p>
+                                </div>
+                            </div>
+                
+                            <div class="card text-white bg-primary col-12 col-lg-2 m-3" style="max-width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title date5"></h5>
+                                        <img class="icon5">
+                                        <p class="card-text temp5">Temp</p>
+                                        <p class="card-text humidity5">humidity</p>
+                                </div>
+                            </div>
+                
+                            <div class="col-1"></div>
+                        </section>
+                </div>
+            </div>
         </div>
-    </header>   
-
-
-    <main class="container">
-        
-        <!-- Today's forcast -->
-        <section>
-            <h2 class= "city date0"></h2>
-            <p class="temp"></p>
-            <p class="humidity"></p>
-            <p class="wind"></p>
-            <p class="uvIndex"></p>
-        </section>
-
-
-        <section class="row">
-            <h2 class="col-12 m-3">5-Day Forecast</h2>
-        </section>
-
-        <!-- 5 Day Forcast cards -->
-        <div class="col-md-1"></div>
-
-        <section class="row">
-            <div class="card text-white bg-primary mb-3 col-10 col-md-2 m-3" style="max-width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title date1"></h5>
-                        <img class="icon1">
-                        <p class="card-text temp1"></p>
-                        <p class="card-text humidity1"></p>
-                </div>
-            </div>
-
-            <div class="card text-white bg-primary mb-3 col-10 col-md-2 m-3" style="max-width: 18rem;">
-                <div class="card-body">
-                <h5 class="card-title date2"></h5>
-                    <img class="icon2">
-                    <p class="card-text temp2">Temp</p>
-                    <p class="card-text humidity2">humidity</p>
-                </div>
-            </div>
-
-            <div class="card text-white bg-primary mb-3 col-10 col-md-2 m-3" style="max-width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title date3"></h5>
-                        <img class="icon3">
-                        <p class="card-text temp3">Temp</p>
-                        <p class="card-text humidity3">humidity</p>
-                </div>
-            </div>
-
-            <div class="card text-white bg-primary mb-3 col-10 col-md-2 m-3" style="max-width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title date4"></h5>
-                        <img class="icon4">
-                        <p class="card-text temp4">Temp</p>
-                        <p class="card-text humidity4">humidity</p>
-                </div>
-            </div>
-
-            <div class="card text-white bg-primary mb-3 col-10 col-md-2 m-3" style="max-width: 18rem;">
-                <div class="card-body">
-                    <h5 class="card-title date5"></h5>
-                        <img class="icon5">
-                        <p class="card-text temp5">Temp</p>
-                        <p class="card-text humidity5">humidity</p>
-                </div>
-            </div>
-
-            <div class="col-md-1"></div>
-        </section>
-        
-
-        <!--Side Nav -->
-        <div class="sidenav">
-
-          <!-- bootstrap search bar -->
-          <nav class="navbar navbar-light my-4">
-            <form class="form-inline">
-              <input class="form-control mr-sm-2" type="search" placeholder="City" aria-label="Search">
-              <button class="btn btn-outline-info my-2 my-sm-0 search" type="submit">Search</button>
-            </form>
-          </nav>
-
-        </div> 
       
     </main> 
 
@@ -117,5 +145,8 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="script.js"></script>
+
+
+
 </body>
 </html>

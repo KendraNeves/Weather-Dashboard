@@ -1,24 +1,13 @@
 $(document).ready(function() {
 
-    //Gets previously entered cities from local storage and prints it in left sidebar
-    {
-        let cities = JSON.parse(localStorage.getItem('cities'));
-        for (let i = 0; i < cities.length; i++) {
-            let button = $("<button>");
-            let city = cities[i];
-            button.appendTo(".sidenav").attr("class", "btn btn-outline-info pastCitySearch col-12").text(city);
-            button.click(function(){
-                getWeather(this.textContent);
-            });
-        }
-    }
-
     //Search for city
     $(".search").click(function(event){
         event.preventDefault();
-        let userInput = $(".form-control").val();
-        let city = userInput;
+        let userInput = $(this).parent().children(".form-control");
+        let city = userInput.val();
+        city = city.replace(/^./, city[0].toUpperCase());
         getWeather(city);
+        console.log(city);
 
          
         // Add item to 'cities' in localStorage
@@ -33,10 +22,11 @@ $(document).ready(function() {
 
     
         let button = $("<button>");
-        button.appendTo(".sidenav").attr("class", "btn btn-outline-info pastCitySearch col-12").text(city);
-        button.click(function(){
+        button.click(function(event){
+            event.preventDefault();
             getWeather(this.textContent);
-        })
+        });
+        button.appendTo(".nav").attr("class", "btn btn-outline-info pastCitySearch col-12").text(city);
         
         
     });
@@ -100,5 +90,40 @@ $(document).ready(function() {
     }
 
     getWeather("Baltimore")
+
+    {
+        let cities = JSON.parse(localStorage.getItem('cities'));
+        if (!cities) {
+            cities = [];
+            localStorage.setItem('cities', JSON.stringify(cities));
+        }
+        for (let i = 0; i < cities.length; i++) {
+            let button = $("<button>");
+            let city = cities[i];
+            button.click(function(event){
+                event.preventDefault();
+                console.log(this.textContent);
+                getWeather(this.textContent);
+            });
+            button.appendTo(".nav").attr("class", "btn btn-outline-info pastCitySearch col-12").text(city);
+        }
+    }
+     //Gets previously entered cities from local storage and prints it in sidebar
+    // {
+    //     let cities = JSON.parse(localStorage.getItem("cities"));
+    //     if (!cities) {
+    //         cities = [];
+    //         localStorage.setItem(JSON.stringify(cities));
+    //         }
+      
+    //     for (let i = 0; i < cities.length; i++) {
+    //         let button = $("<button>");
+    //         let city = cities[i];
+    //         button.appendTo(".nav").attr("class", "btn btn-outline-info pastCitySearch col-12").text(city);
+    //         button.click(function(){
+    //             getWeather(this.textContent);
+    //         });
+    //     }
+    // }
 
 });
